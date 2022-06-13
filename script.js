@@ -13,6 +13,21 @@ const equalSign = document.querySelector('.equal-sign');
 const clearBtn = document.querySelector('.all-clear');
 const audio = document.getElementById('audio');
 
+function playM(){
+    const promise = audio.play();
+
+    if(promise !== undefined){
+        promise.then(() => {
+            // Autoplay started
+            audio.muted = false;
+            audio.play();
+        }).catch(error => {
+            // Autoplay was prevented.
+            audio.muted = true;
+        });
+    }
+}
+
 const clearAll = () => {
     prevNumber = '';
     calculationOperator = '';
@@ -34,7 +49,7 @@ inputPercentage = (percen) =>{
 /** Listener click event button const number */
 numbers.forEach( (number)=> {
     number.addEventListener("click", (event) =>{
-        audio.play();
+        playM();
         inputNumber(event.target.value);
         updateScreen(currentNumber);
     });
@@ -42,21 +57,21 @@ numbers.forEach( (number)=> {
 
 /** Listener click event button const decimal */
 decimal.addEventListener('click', (event) => {
-    audio.play();
+    playM();
     inputDecimal(event.target.value);
     updateScreen(currentNumber);
 });
 
 /** Listener click event button const percentage */
 percentage.addEventListener('click', (event) => {
-    audio.play();
+    playM()
     currentNumber = inputPercentage(currentNumber);
     updateScreen(currentNumber);
 })
 
 /** Listener click event button const operator */
 operators.forEach( (operator)=> {
-    audio.play();
+    playM();
     operator.addEventListener("click", (event) =>{
         inputOperator(event.target.value);
     });
@@ -64,7 +79,7 @@ operators.forEach( (operator)=> {
 
 /** Listener click event button const operator */
 equalSign.addEventListener('click', () => {
-    audio.play();
+    playM();
     if(calculationOperator === ''){
         return
     }
@@ -78,7 +93,7 @@ equalSign.addEventListener('click', () => {
 
 /** Listener click event button const clearBtn */
 clearBtn.addEventListener('click', function(){
-    audio.play();
+    playM();
     clearAll();
     updateScreen(currentNumber);
 });
@@ -121,7 +136,7 @@ const updateScreen = function(number) {
     calculatorScreen.value = number;
 }
 
-/** menirima masukan angka lebih dari 1 digit */
+/** menerima masukan angka lebih dari 1 digit */
 const inputNumber = (number) => {
     if (currentNumber === '0') {
         currentNumber = number;
@@ -132,22 +147,19 @@ const inputNumber = (number) => {
 
 /** menerima input operator */
 const inputOperator = (operator) => {
-    audio.play();
+    playM();
     
     if (calculationOperator === ''){
-        console.log('jalan 1');
         prevNumber = currentNumber;
         calculationOperator = operator;
         currentNumber = '';
     } 
 
     else if (currentNumber === ''){
-        console.log('jalan 2');
         calculationOperator = operator;
     }   
 
     else if (calculationOperator && currentNumber !== null){
-        console.log('jalan 3');
         calculate();
         updateScreen(currentNumber);
 

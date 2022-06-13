@@ -8,6 +8,7 @@ const numbers = document.querySelectorAll('.number');
 const decimal = document.querySelector('.decimal');
 const calculatorScreen = document.querySelector('.calculator-screen');
 const operators = document.querySelectorAll('.operator');
+const percentage = document.querySelector('.percentage');
 const equalSign = document.querySelector('.equal-sign');
 const clearBtn = document.querySelector('.all-clear');
 
@@ -24,6 +25,10 @@ inputDecimal = (dot) => {
     currentNumber += dot;
 }
 
+inputPercentage = (percen) =>{
+    return percen / 100;
+}
+
 /** Listener click event button const number */
 numbers.forEach( (number)=> {
     number.addEventListener("click", (event) =>{
@@ -38,6 +43,12 @@ decimal.addEventListener('click', (event) => {
     updateScreen(currentNumber);
 });
 
+/** Listener click event button const percentage */
+percentage.addEventListener('click', (event) => {
+    currentNumber = inputPercentage(currentNumber);
+    updateScreen(currentNumber);
+})
+
 /** Listener click event button const operator */
 operators.forEach( (operator)=> {
     operator.addEventListener("click", (event) =>{
@@ -49,7 +60,7 @@ operators.forEach( (operator)=> {
 equalSign.addEventListener('click', () => {
 
     if(calculationOperator === ''){
-        return console.log('waoo');
+        return
     }
     else {
         TriggerEqual = true;
@@ -114,7 +125,6 @@ const inputNumber = (number) => {
 
 /** menerima input operator */
 const inputOperator = (operator) => {
-    console.log('inputOperator ON');
     if (calculationOperator === ''){
         prevNumber = currentNumber
         calculationOperator = operator

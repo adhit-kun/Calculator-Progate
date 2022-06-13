@@ -14,9 +14,10 @@ const clearBtn = document.querySelector('.all-clear');
 const audio = document.getElementById('audio');
 
 const clearAll = () => {
-    prevNumber = ''
-    calculationOperator = ''
-    currentNumber = '0'
+    prevNumber = '';
+    calculationOperator = '';
+    currentNumber = '0';
+    TriggerEqual = false;
 }
 
 inputDecimal = (dot) => {
@@ -117,15 +118,15 @@ const calculate = () => {
 
 /** function updateScreen */
 const updateScreen = function(number) {
-    calculatorScreen.value = number ;
+    calculatorScreen.value = number;
 }
 
 /** menirima masukan angka lebih dari 1 digit */
 const inputNumber = (number) => {
     if (currentNumber === '0') {
-        currentNumber = number
+        currentNumber = number;
     } else {
-        currentNumber += number
+        currentNumber += number;
     }
 }
 
@@ -134,17 +135,26 @@ const inputOperator = (operator) => {
     audio.play();
     
     if (calculationOperator === ''){
-        prevNumber = currentNumber
-        calculationOperator = operator
-        currentNumber = ''
+        console.log('jalan 1');
+        prevNumber = currentNumber;
+        calculationOperator = operator;
+        currentNumber = '';
     } 
-    else if (calculationOperator){
-        TriggerEqual = false;
+
+    else if (currentNumber === ''){
+        console.log('jalan 2');
+        calculationOperator = operator;
+    }   
+
+    else if (calculationOperator && currentNumber !== null){
+        console.log('jalan 3');
         calculate();
         updateScreen(currentNumber);
-        prevNumber = currentNumber
-        calculationOperator = operator
-        currentNumber = ''
+
+        prevNumber = currentNumber;
+        calculationOperator = operator;
+        currentNumber = '';
     }
-   
+
+    // console.log(`${prevNumber} ${calculationOperator} ${currentNumber}`);
 }

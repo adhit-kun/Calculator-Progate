@@ -11,6 +11,7 @@ const operators = document.querySelectorAll('.operator');
 const percentage = document.querySelector('.percentage');
 const equalSign = document.querySelector('.equal-sign');
 const clearBtn = document.querySelector('.all-clear');
+const audio = document.getElementById('audio');
 
 const clearAll = () => {
     prevNumber = ''
@@ -32,6 +33,7 @@ inputPercentage = (percen) =>{
 /** Listener click event button const number */
 numbers.forEach( (number)=> {
     number.addEventListener("click", (event) =>{
+        audio.play();
         inputNumber(event.target.value);
         updateScreen(currentNumber);
     });
@@ -39,18 +41,21 @@ numbers.forEach( (number)=> {
 
 /** Listener click event button const decimal */
 decimal.addEventListener('click', (event) => {
+    audio.play();
     inputDecimal(event.target.value);
     updateScreen(currentNumber);
 });
 
 /** Listener click event button const percentage */
 percentage.addEventListener('click', (event) => {
+    audio.play();
     currentNumber = inputPercentage(currentNumber);
     updateScreen(currentNumber);
 })
 
 /** Listener click event button const operator */
 operators.forEach( (operator)=> {
+    audio.play();
     operator.addEventListener("click", (event) =>{
         inputOperator(event.target.value);
     });
@@ -58,7 +63,7 @@ operators.forEach( (operator)=> {
 
 /** Listener click event button const operator */
 equalSign.addEventListener('click', () => {
-
+    audio.play();
     if(calculationOperator === ''){
         return
     }
@@ -72,6 +77,7 @@ equalSign.addEventListener('click', () => {
 
 /** Listener click event button const clearBtn */
 clearBtn.addEventListener('click', function(){
+    audio.play();
     clearAll();
     updateScreen(currentNumber);
 });
@@ -125,6 +131,8 @@ const inputNumber = (number) => {
 
 /** menerima input operator */
 const inputOperator = (operator) => {
+    audio.play();
+    
     if (calculationOperator === ''){
         prevNumber = currentNumber
         calculationOperator = operator
